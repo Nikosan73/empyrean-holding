@@ -213,35 +213,16 @@
             const planeW = planeH * aspect;  // width preserves aspect ratio
             const planeGeo = new THREE.PlaneGeometry(planeW, planeH);
 
-            // Front/back faces — full opacity, double-sided
-            const texMaterial = new THREE.MeshBasicMaterial({
+            // Single plane — full opacity, double-sided so logo visible from both sides
+            const material = new THREE.MeshBasicMaterial({
                 map: texture,
                 transparent: true,
                 side: THREE.DoubleSide,
                 depthWrite: false
             });
 
-            // Inner layers — very faint, gives subtle 3D depth
-            const edgeMaterial = new THREE.MeshBasicMaterial({
-                map: texture,
-                transparent: true,
-                opacity: 0.06,
-                side: THREE.DoubleSide,
-                depthWrite: false
-            });
-
-            // Stack 14 layers for depth effect
-            const numLayers = 14;
-            const thickness = 0.12;
-
-            for (let i = 0; i < numLayers; i++) {
-                const t = i / (numLayers - 1);           // 0 → 1
-                const z = -thickness / 2 + t * thickness; // spread front to back
-                const isEndCap = (i === 0 || i === numLayers - 1);
-                const plane = new THREE.Mesh(planeGeo, isEndCap ? texMaterial : edgeMaterial);
-                plane.position.z = z;
-                scene.add(plane);
-            }
+            const plane = new THREE.Mesh(planeGeo, material);
+            scene.add(plane);
 
             // Start render loop once texture is loaded
             update();
