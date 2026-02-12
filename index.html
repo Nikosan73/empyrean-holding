@@ -192,7 +192,7 @@
         // Default orbit position — front-on view
         const defaultTheta = Math.PI / 2;
         const defaultPhi = Math.PI / 2;
-        const defaultRadius = 5.5;
+        const defaultRadius = 4.5;
         let theta = defaultTheta;
         let phi = defaultPhi;
         let radius = defaultRadius;
@@ -201,9 +201,14 @@
         // --- Load logo.png as texture and build 3D plane stack ---
         const loader = new THREE.TextureLoader();
         loader.load('logo.png', function(texture) {
+            // Prevent Three.js from resizing to power-of-2 (causes distortion)
+            texture.generateMipmaps = false;
             texture.minFilter = THREE.LinearFilter;
             texture.magFilter = THREE.LinearFilter;
             texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+            // Clamp edges to avoid wrapping artefacts
+            texture.wrapS = THREE.ClampToEdgeWrapping;
+            texture.wrapT = THREE.ClampToEdgeWrapping;
 
             // Match plane aspect ratio to the actual image dimensions
             const img = texture.image;
