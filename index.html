@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Empyrean Developments and Planning | London</title>
+    <meta name="description" content="Empyrean Developments and Planning - The Capital Authority. Residential property development in London.">
+    
+    <!-- Favicon - will be replaced with actual favicon.png -->
+    <link rel="icon" type="image/png" href="favicon.png">
+    
+    <!-- Fonts: Montserrat for brand consistency + a refined serif for tagline -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* === Brand Colours === */
+        :root {
+            --charcoal: #3d4248;
+            --charcoal-light: #5a6068;
+            --blue-accent: #7bbde0;
+            --blue-accent-muted: #a3d1ea;
+            --off-white: #f5f5f5;
+            --white: #ffffff;
+        }
+
+        /* === Reset & Base === */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--off-white);
+            color: var(--charcoal);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* === Subtle background texture === */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(123, 189, 224, 0.06) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 50%, rgba(123, 189, 224, 0.04) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        /* === Main Content === */
+        .container {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            padding: 2rem;
+            animation: fadeIn 1.2s ease-out;
+        }
+
+        /* === Logo === */
+        .logo-wrapper {
+            margin-bottom: 2.5rem;
+            animation: fadeIn 1s ease-out 0.2s both;
+        }
+
+        .logo-wrapper img {
+            max-width: 480px;
+            width: 90vw;
+            height: auto;
+        }
+
+        /* === Decorative line === */
+        .divider {
+            width: 60px;
+            height: 2px;
+            background: var(--blue-accent);
+            margin: 0 auto 2rem;
+            animation: expandLine 0.8s ease-out 0.6s both;
+        }
+
+        /* === Tagline === */
+        .tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            font-style: italic;
+            letter-spacing: 0.15em;
+            color: var(--charcoal-light);
+            margin-bottom: 3rem;
+            animation: fadeIn 1s ease-out 0.8s both;
+        }
+
+        /* === Coming Soon === */
+        .coming-soon {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--blue-accent);
+            animation: fadeIn 1s ease-out 1s both;
+        }
+
+        /* === Footer === */
+        .footer {
+            position: fixed;
+            bottom: 2rem;
+            left: 0;
+            right: 0;
+            text-align: center;
+            z-index: 1;
+            animation: fadeIn 1s ease-out 1.2s both;
+        }
+
+        .footer p {
+            font-size: 0.65rem;
+            letter-spacing: 0.1em;
+            color: var(--charcoal-light);
+            opacity: 0.5;
+        }
+
+        /* === Animations === */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes expandLine {
+            from { width: 0; opacity: 0; }
+            to { width: 60px; opacity: 1; }
+        }
+
+        /* === Responsive === */
+        @media (max-width: 600px) {
+            .logo-wrapper img {
+                max-width: 320px;
+            }
+            .tagline {
+                font-size: 1.2rem;
+                margin-bottom: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-wrapper">
+            <img src="logo.png" alt="Empyrean Developments and Planning - London">
+        </div>
+        <div class="divider"></div>
+        <p class="tagline">The Capital Authority</p>
+        <p class="coming-soon">Website Coming Soon</p>
+    </div>
+
+    <footer class="footer">
+        <p>&copy; 2025 Empyrean Developments and Planning Ltd</p>
+    </footer>
+</body>
+</html>
