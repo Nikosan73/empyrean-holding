@@ -6,36 +6,24 @@
     <title>Empyrean Developments and Planning | London</title>
     <meta name="description" content="Empyrean Developments and Planning - The Capital Authority. Residential property development in London.">
     
-    <!-- Favicon - will be replaced with actual favicon.png -->
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png">
     
-    <!-- Fonts: Montserrat for brand consistency + a refined serif for tagline -->
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Nunito+Sans:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* === Brand Colours === */
         :root {
             --charcoal: #3d4248;
             --charcoal-light: #5a6068;
             --blue-accent: #7bbde0;
-            --blue-accent-muted: #a3d1ea;
             --off-white: #f5f5f5;
-            --white: #ffffff;
         }
 
-        /* === Reset & Base === */
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html, body {
-            height: 100%;
-            overflow: hidden;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        html, body { height: 100%; overflow: hidden; }
 
         body {
             font-family: 'Montserrat', sans-serif;
@@ -45,11 +33,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            position: relative;
         }
 
-        /* === Subtle background texture === */
+        /* Subtle background radials */
         body::before {
             content: '';
             position: fixed;
@@ -61,110 +47,278 @@
             z-index: 0;
         }
 
-        /* === Main Content === */
-        .container {
-            position: relative;
+        #three-canvas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
             z-index: 1;
+            cursor: grab;
+        }
+        #three-canvas:active { cursor: grabbing; }
+
+        /* Overlay content at bottom */
+        .overlay {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            z-index: 10;
             text-align: center;
-            padding: 2rem;
-            animation: fadeIn 1.2s ease-out;
+            padding-bottom: 2.5rem;
+            pointer-events: none;
+            background: linear-gradient(to bottom, transparent 0%, rgba(245,245,245,0.7) 40%, rgba(245,245,245,0.95) 100%);
         }
 
-        /* === Logo === */
-        .logo-wrapper {
-            margin-bottom: 2.5rem;
-            animation: fadeIn 1s ease-out 0.2s both;
-        }
-
-        .logo-wrapper img {
-            max-width: 640px;
-            width: 90vw;
-            height: auto;
-        }
-
-        /* === Decorative line === */
         .divider {
-            width: 60px;
-            height: 2px;
+            width: 60px; height: 2px;
             background: var(--blue-accent);
-            margin: 0 auto 2rem;
-            animation: expandLine 0.8s ease-out 0.6s both;
+            margin: 0 auto 1.5rem;
+            animation: expandLine 0.8s ease-out 1.5s both;
         }
 
-        /* === Tagline === */
         .tagline {
-            font-family: 'Avenir', 'Avenir Next', 'Nunito Sans', sans-serif;
+            font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
-            font-weight: 300;
+            font-weight: 400;
+            font-style: italic;
             letter-spacing: 0.15em;
             color: var(--charcoal-light);
-            margin-bottom: 3rem;
-            animation: fadeIn 1s ease-out 0.8s both;
+            margin-bottom: 1.8rem;
+            animation: fadeIn 1s ease-out 1.8s both;
         }
 
-        /* === Coming Soon === */
         .coming-soon {
             font-size: 0.75rem;
             font-weight: 500;
             letter-spacing: 0.3em;
             text-transform: uppercase;
             color: var(--blue-accent);
-            animation: fadeIn 1s ease-out 1s both;
+            margin-bottom: 2.5rem;
+            animation: fadeIn 1s ease-out 2s both;
         }
 
-        /* === Footer === */
         .footer {
-            position: fixed;
-            bottom: 2rem;
-            left: 0;
-            right: 0;
-            text-align: center;
-            z-index: 1;
-            animation: fadeIn 1s ease-out 1.2s both;
-        }
-
-        .footer p {
             font-size: 0.65rem;
             letter-spacing: 0.1em;
             color: var(--charcoal-light);
             opacity: 0.5;
+            animation: fadeIn 1s ease-out 2.2s both;
         }
 
-        /* === Animations === */
+        .hint {
+            position: fixed;
+            top: 1.2rem; left: 0; right: 0;
+            text-align: center;
+            z-index: 10;
+            font-size: 0.65rem;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--charcoal-light);
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 3s both;
+            pointer-events: none;
+        }
+
+        #resetBtn {
+            position: fixed;
+            bottom: 1rem; right: 1rem;
+            z-index: 20;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            background: var(--charcoal);
+            color: #fff;
+            border: none;
+            padding: 6px 14px;
+            cursor: pointer;
+            opacity: 0;
+            transition: opacity 0.3s, background 0.2s;
+            pointer-events: auto;
+        }
+        #resetBtn:hover { background: var(--charcoal-light); }
+        #resetBtn.visible { opacity: 0.6; }
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(12px); }
+            from { opacity: 0; transform: translateY(8px); }
             to { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes expandLine {
             from { width: 0; opacity: 0; }
             to { width: 60px; opacity: 1; }
         }
 
-        /* === Responsive === */
         @media (max-width: 600px) {
-            .logo-wrapper img {
-                max-width: 320px;
-            }
-            .tagline {
-                font-size: 1.2rem;
-                margin-bottom: 2rem;
-            }
+            .tagline { font-size: 1.15rem; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="logo-wrapper">
-            <img src="logo.png" alt="Empyrean Developments and Planning - London">
-        </div>
+
+    <canvas id="three-canvas"></canvas>
+
+    <div class="hint">Drag to explore &middot; Scroll to zoom</div>
+
+    <div class="overlay">
         <div class="divider"></div>
         <p class="tagline">The Capital Authority</p>
         <p class="coming-soon">New Website Coming Soon</p>
+        <p class="footer">&copy; 2025 Empyrean Developments and Planning Ltd</p>
     </div>
 
-    <footer class="footer">
-        <p>&copy; 2025 Empyrean Developments and Planning Ltd</p>
-    </footer>
+    <button id="resetBtn">Reset</button>
+
+    <!-- Three.js r128 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <script>
+        // ============================================================
+        // 3D orbitable logo.png on transparent plane with depth layers
+        // Logo image is loaded as a texture — supports PNG transparency
+        // ============================================================
+
+        const canvas = document.getElementById('three-canvas');
+        const resetBtn = document.getElementById('resetBtn');
+
+        // --- Renderer (transparent so page background shows through) ---
+        const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000, 0);
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(
+            45, window.innerWidth / window.innerHeight, 0.1, 100
+        );
+
+        // Default orbit position — front-on view
+        const defaultTheta = Math.PI / 2;
+        const defaultPhi = Math.PI / 2;
+        const defaultRadius = 5.5;
+        let theta = defaultTheta;
+        let phi = defaultPhi;
+        let radius = defaultRadius;
+        let hasInteracted = false;
+
+        // --- Load logo.png as texture and build 3D plane stack ---
+        const loader = new THREE.TextureLoader();
+        loader.load('logo.png', function(texture) {
+            texture.minFilter = THREE.LinearFilter;
+            texture.magFilter = THREE.LinearFilter;
+            texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+
+            // Match plane aspect ratio to the actual image dimensions
+            const img = texture.image;
+            const aspect = img.width / img.height;
+
+            const planeH = 2.8;              // height in 3D units
+            const planeW = planeH * aspect;  // width preserves aspect ratio
+            const planeGeo = new THREE.PlaneGeometry(planeW, planeH);
+
+            // Front/back faces — full opacity, double-sided
+            const texMaterial = new THREE.MeshBasicMaterial({
+                map: texture,
+                transparent: true,
+                side: THREE.DoubleSide,
+                depthWrite: false
+            });
+
+            // Inner layers — very faint, gives subtle 3D depth
+            const edgeMaterial = new THREE.MeshBasicMaterial({
+                map: texture,
+                transparent: true,
+                opacity: 0.06,
+                side: THREE.DoubleSide,
+                depthWrite: false
+            });
+
+            // Stack 14 layers for depth effect
+            const numLayers = 14;
+            const thickness = 0.12;
+
+            for (let i = 0; i < numLayers; i++) {
+                const t = i / (numLayers - 1);           // 0 → 1
+                const z = -thickness / 2 + t * thickness; // spread front to back
+                const isEndCap = (i === 0 || i === numLayers - 1);
+                const plane = new THREE.Mesh(planeGeo, isEndCap ? texMaterial : edgeMaterial);
+                plane.position.z = z;
+                scene.add(plane);
+            }
+
+            // Start render loop once texture is loaded
+            update();
+        });
+
+        // --- Mouse orbit ---
+        let isDragging = false;
+        let prevX = 0, prevY = 0;
+
+        canvas.addEventListener('mousedown', e => {
+            isDragging = true;
+            prevX = e.clientX;
+            prevY = e.clientY;
+        });
+        window.addEventListener('mousemove', e => {
+            if (!isDragging) return;
+            if (!hasInteracted) { hasInteracted = true; resetBtn.classList.add('visible'); }
+            theta -= (e.clientX - prevX) * 0.005;
+            phi -= (e.clientY - prevY) * 0.005;
+            phi = Math.max(0.1, Math.min(Math.PI - 0.1, phi));
+            prevX = e.clientX;
+            prevY = e.clientY;
+        });
+        window.addEventListener('mouseup', () => isDragging = false);
+
+        // --- Touch orbit ---
+        canvas.addEventListener('touchstart', e => {
+            if (e.touches.length === 1) {
+                isDragging = true;
+                prevX = e.touches[0].clientX;
+                prevY = e.touches[0].clientY;
+            }
+        });
+        canvas.addEventListener('touchmove', e => {
+            if (!isDragging || e.touches.length !== 1) return;
+            e.preventDefault();
+            if (!hasInteracted) { hasInteracted = true; resetBtn.classList.add('visible'); }
+            theta -= (e.touches[0].clientX - prevX) * 0.005;
+            phi -= (e.touches[0].clientY - prevY) * 0.005;
+            phi = Math.max(0.1, Math.min(Math.PI - 0.1, phi));
+            prevX = e.touches[0].clientX;
+            prevY = e.touches[0].clientY;
+        }, { passive: false });
+        canvas.addEventListener('touchend', () => isDragging = false);
+
+        // Scroll to zoom
+        canvas.addEventListener('wheel', e => {
+            if (!hasInteracted) { hasInteracted = true; resetBtn.classList.add('visible'); }
+            radius += e.deltaY * 0.005;
+            radius = Math.max(2, Math.min(12, radius));
+        }, { passive: true });
+
+        // Reset view
+        resetBtn.addEventListener('click', () => {
+            theta = defaultTheta;
+            phi = defaultPhi;
+            radius = defaultRadius;
+            hasInteracted = false;
+            resetBtn.classList.remove('visible');
+        });
+
+        // --- Resize handler ---
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // --- Render loop ---
+        function update() {
+            requestAnimationFrame(update);
+            camera.position.x = radius * Math.sin(phi) * Math.cos(theta);
+            camera.position.y = radius * Math.cos(phi);
+            camera.position.z = radius * Math.sin(phi) * Math.sin(theta);
+            camera.lookAt(0, 0, 0);
+            renderer.render(scene, camera);
+        }
+    </script>
 </body>
 </html>
