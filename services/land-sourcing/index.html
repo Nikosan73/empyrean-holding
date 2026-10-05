@@ -96,6 +96,15 @@
   .art .win { opacity:0; animation:fade .8s var(--ease) forwards; animation-delay:calc(1s + var(--i) * .06s); }
   .art .slide-l { opacity:0; transform:translateX(-120px); animation:in 1.8s .3s var(--ease) forwards; }
   .art .slide-r { opacity:0; transform:translateX(120px); animation:in 1.8s .45s var(--ease) forwards; }
+  /* Exit and Sales: lights switching on */
+  .art .lamp { fill:#050505; animation:lampon .7s var(--ease) forwards; animation-delay:var(--d); }
+  .art .glow { opacity:0; animation:glowon 1.4s var(--ease) forwards; animation-delay:var(--d); }
+  .art .beam { opacity:0; transform-box:fill-box; transform-origin:top; transform:scaleY(0); animation:beam 1.6s 1s var(--ease) forwards; }
+  .art .door { transform-box:fill-box; transform-origin:right; transform:scaleX(.05); animation:door 1.2s .7s var(--ease) forwards; }
+  @keyframes lampon { to { fill:#f7f7f5; } }
+  @keyframes glowon { to { opacity:.28; } }
+  @keyframes beam { to { opacity:1; transform:none; } }
+  @keyframes door { to { transform:none; } }
   @keyframes draw { to { stroke-dashoffset:0; } }
   @keyframes fade { to { opacity:1; } }
   @keyframes up { to { opacity:1; transform:none; } }
@@ -104,6 +113,7 @@
     *, *::before, *::after { animation:none !important; }
     .count, h1, .lede, .art .fade, .art .pop, .art .rise, .art .win, .art .slide-l, .art .slide-r { opacity:1; transform:none; }
     .art .draw, .art .draw-g line { stroke-dashoffset:0; }
+    .art .lamp { fill:#f7f7f5; } .art .glow { opacity:.28; } .art .beam, .art .door { opacity:1; transform:none; }
   }
 </style>
 </head>
