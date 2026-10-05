@@ -105,6 +105,12 @@
   @keyframes glowon { to { opacity:.28; } }
   @keyframes beam { to { opacity:1; transform:none; } }
   @keyframes door { to { transform:none; } }
+  /* Development Management: stages revealed in sequence */
+  .art .sweep { stroke-dasharray:1200; stroke-dashoffset:1200; animation:draw 2.8s .4s linear forwards; }
+  .art .seq-draw { stroke-dasharray:1200; stroke-dashoffset:1200; animation:draw 1.1s cubic-bezier(.65,0,.35,1) forwards; animation-delay:var(--d); }
+  .art rect.seq-draw { stroke-dasharray:10 10; stroke-dashoffset:0; opacity:0; animation:fade .9s var(--ease) forwards; animation-delay:var(--d); }
+  .art .seq-pop { opacity:0; animation:fade .5s var(--ease) forwards; animation-delay:var(--d); }
+  .art .seq-rise { opacity:0; transform:translateY(60px); animation:up 1.2s var(--ease) forwards; animation-delay:var(--d); }
   @keyframes draw { to { stroke-dashoffset:0; } }
   @keyframes fade { to { opacity:1; } }
   @keyframes up { to { opacity:1; transform:none; } }
@@ -112,7 +118,8 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation:none !important; }
     .count, h1, .lede, .art .fade, .art .pop, .art .rise, .art .win, .art .slide-l, .art .slide-r { opacity:1; transform:none; }
-    .art .draw, .art .draw-g line { stroke-dashoffset:0; }
+    .art .draw, .art .draw-g line, .art .sweep, .art .seq-draw { stroke-dashoffset:0; }
+    .art .seq-pop, .art .seq-rise, .art rect.seq-draw { opacity:1; transform:none; }
     .art .lamp { fill:#f7f7f5; } .art .glow { opacity:.28; } .art .beam, .art .door { opacity:1; transform:none; }
   }
 </style>
@@ -135,7 +142,7 @@
 </header>
 
 <section class="hero">
-  <svg class="art" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax meet" role="presentation" aria-hidden="true"><defs></defs><line class="draw" x1="0" y1="760" x2="1600" y2="760" stroke="#2b2b2b" stroke-width="2"/><rect class="draw" x="170" y="560" width="220" height="200" fill="none" stroke="#8a8a8a" stroke-width="2" stroke-dasharray="10 10"/><path class="draw" d="M520 760 V520 L630 440 L740 520 V760" fill="none" stroke="#8a8a8a" stroke-width="2"/><line class="draw" x1="870" y1="520" x2="1090" y2="520" stroke="#595959" stroke-width="3"/><line class="draw" x1="870" y1="580" x2="1090" y2="580" stroke="#595959" stroke-width="3"/><line class="draw" x1="870" y1="640" x2="1090" y2="640" stroke="#595959" stroke-width="3"/><line class="draw" x1="870" y1="700" x2="1090" y2="700" stroke="#595959" stroke-width="3"/><path class="draw" d="M870 760 V520 L980 440 L1090 520 V760" fill="none" stroke="#595959" stroke-width="3"/><path class="pop" d="M1310 760 V470 L1410 380 L1510 470 V760Z" fill="#595959"/><path class="pop" d="M1210 760 V560 L1310 490 L1410 560 V760Z" fill="#f7f7f5"/><path class="draw" d="M280 840 H1360" stroke="#8a8a8a" stroke-width="2" fill="none"/><circle class="pop" cx="280" cy="840" r="8" fill="#f7f7f5"/><circle class="pop" cx="630" cy="840" r="8" fill="#f7f7f5"/><circle class="pop" cx="980" cy="840" r="8" fill="#f7f7f5"/><circle class="pop" cx="1360" cy="840" r="8" fill="#f7f7f5"/></svg>
+  <svg class="art" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax meet" role="presentation" aria-hidden="true"><defs></defs><line class="draw" x1="0" y1="760" x2="1600" y2="760" stroke="#2b2b2b" stroke-width="2"/><path class="sweep" d="M280 840 H1360" stroke="#8a8a8a" stroke-width="2.5" fill="none"/><circle class="seq-pop" style="--d:0.40s" cx="280" cy="840" r="8" fill="#f7f7f5"/><circle class="seq-pop" style="--d:1.30s" cx="630" cy="840" r="8" fill="#f7f7f5"/><circle class="seq-pop" style="--d:2.20s" cx="980" cy="840" r="8" fill="#f7f7f5"/><circle class="seq-pop" style="--d:3.10s" cx="1360" cy="840" r="8" fill="#f7f7f5"/><rect class="seq-draw" style="--d:0.40s" x="170" y="560" width="220" height="200" fill="none" stroke="#9a9a9a" stroke-width="3" stroke-dasharray="10 10"/><path class="seq-draw" style="--d:1.30s" d="M520 760 V520 L630 440 L740 520 V760" fill="none" stroke="#b5b5b5" stroke-width="4"/><path class="seq-draw" style="--d:2.20s" d="M870 760 V520 L980 440 L1090 520 V760" fill="none" stroke="#d0d0d0" stroke-width="4"/><line class="seq-draw" style="--d:2.35s" x1="870" y1="700" x2="1090" y2="700" stroke="#d0d0d0" stroke-width="4"/><line class="seq-draw" style="--d:2.50s" x1="870" y1="640" x2="1090" y2="640" stroke="#d0d0d0" stroke-width="4"/><line class="seq-draw" style="--d:2.65s" x1="870" y1="580" x2="1090" y2="580" stroke="#d0d0d0" stroke-width="4"/><line class="seq-draw" style="--d:2.80s" x1="870" y1="520" x2="1090" y2="520" stroke="#d0d0d0" stroke-width="4"/><path class="seq-rise" style="--d:3.10s" d="M1310 760 V470 L1410 380 L1510 470 V760Z" fill="#595959"/><path class="seq-rise" style="--d:3.40s" d="M1210 760 V560 L1310 490 L1410 560 V760Z" fill="#f7f7f5"/></svg>
   <div class="title">
     <p class="count">04 / 08</p>
     <h1>Development Management</h1>

@@ -105,6 +105,12 @@
   @keyframes glowon { to { opacity:.28; } }
   @keyframes beam { to { opacity:1; transform:none; } }
   @keyframes door { to { transform:none; } }
+  /* Development Management: stages revealed in sequence */
+  .art .sweep { stroke-dasharray:1200; stroke-dashoffset:1200; animation:draw 2.8s .4s linear forwards; }
+  .art .seq-draw { stroke-dasharray:1200; stroke-dashoffset:1200; animation:draw 1.1s cubic-bezier(.65,0,.35,1) forwards; animation-delay:var(--d); }
+  .art rect.seq-draw { stroke-dasharray:10 10; stroke-dashoffset:0; opacity:0; animation:fade .9s var(--ease) forwards; animation-delay:var(--d); }
+  .art .seq-pop { opacity:0; animation:fade .5s var(--ease) forwards; animation-delay:var(--d); }
+  .art .seq-rise { opacity:0; transform:translateY(60px); animation:up 1.2s var(--ease) forwards; animation-delay:var(--d); }
   @keyframes draw { to { stroke-dashoffset:0; } }
   @keyframes fade { to { opacity:1; } }
   @keyframes up { to { opacity:1; transform:none; } }
@@ -112,7 +118,8 @@
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after { animation:none !important; }
     .count, h1, .lede, .art .fade, .art .pop, .art .rise, .art .win, .art .slide-l, .art .slide-r { opacity:1; transform:none; }
-    .art .draw, .art .draw-g line { stroke-dashoffset:0; }
+    .art .draw, .art .draw-g line, .art .sweep, .art .seq-draw { stroke-dashoffset:0; }
+    .art .seq-pop, .art .seq-rise, .art rect.seq-draw { opacity:1; transform:none; }
     .art .lamp { fill:#f7f7f5; } .art .glow { opacity:.28; } .art .beam, .art .door { opacity:1; transform:none; }
   }
 </style>
