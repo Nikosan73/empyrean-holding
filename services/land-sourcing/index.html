@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Land Sourcing | Empyrean Developments</title>
+<meta name="description" content="Every great London scheme begins with the right site.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='120 0 784 784'%3E%3CclipPath id='c'%3E%3Ccircle cx='512' cy='391' r='384'/%3E%3C/clipPath%3E%3Ccircle cx='512' cy='391' r='384' fill='%23fff' stroke='%23000' stroke-width='28'/%3E%3Cg clip-path='url(%23c)'%3E%3Cpath d='M500 352 706 158 940 377V800H500Z' fill='%23595959'/%3E%3Cpath d='M80 572 363 378 580 525V800H80Z' fill='%23000'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jost:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#050505; --paper:#f7f7f5; --grey:#595959; --mute:#8a8a8a; --line:#d6d6d2; --ease:cubic-bezier(.16,1,.3,1); }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  html { background:var(--ink); }
+  body {
+    background:var(--ink); color:var(--paper);
+    /* Brand font: Avenir LT Pro Light. Shown where installed; Jost (free, similar) otherwise */
+    font-family:"Avenir LT Pro","Avenir LT Pro 35 Light","Avenir","Avenir Next","Jost",system-ui,sans-serif;
+    font-weight:300; -webkit-font-smoothing:antialiased; overflow-x:hidden;
+  }
+  a { color:inherit; }
+  header {
+    position:absolute; top:0; left:0; right:0; z-index:5;
+    display:flex; align-items:center; justify-content:space-between; gap:16px;
+    padding:24px clamp(16px,4vw,48px);
+  }
+  .brand { display:flex; align-items:center; gap:14px; text-decoration:none; }
+  .brand svg { width:34px; height:34px; }
+  .brand span { font-size:13px; font-weight:400; letter-spacing:.36em; text-transform:uppercase; }
+  .back {
+    font-size:11px; font-weight:400; letter-spacing:.32em; text-transform:uppercase;
+    color:var(--mute); text-decoration:none; transition:color .4s;
+  }
+  .back:hover, .back:focus-visible { color:var(--paper); }
+
+  /* Hero: artwork with the title over it */
+  .hero { position:relative; height:92vh; height:92svh; min-height:560px; overflow:hidden; display:flex; flex-direction:column; padding-top:clamp(80px,11vh,120px); }
+  /* Artwork fills the space above the title, so the two never collide */
+  .art { position:relative; flex:1 1 auto; min-height:0; width:100%; }
+  .hero::after {
+    content:""; position:absolute; inset:0;
+    background:linear-gradient(180deg, rgba(5,5,5,0) 60%, rgba(5,5,5,.6) 100%); pointer-events:none;
+  }
+  .title {
+    position:relative; z-index:2; width:100%;
+    max-width:1100px; margin:0 auto; padding:clamp(24px,4vh,48px) 16px clamp(40px,8vh,88px);
+  }
+  .count {
+    font-size:12px; font-weight:400; letter-spacing:.42em; color:var(--mute);
+    display:flex; align-items:center; gap:18px; margin-bottom:22px;
+    opacity:0; animation:fade 1.2s .2s var(--ease) forwards;
+  }
+  .count::before { content:""; width:42px; height:1px; background:currentColor; opacity:.6; }
+  h1 {
+    font-size:clamp(40px,8vw,112px); font-weight:300; line-height:1; letter-spacing:-.01em;
+    opacity:0; transform:translateY(30px); animation:up 1.4s .35s var(--ease) forwards;
+  }
+  .lede {
+    margin-top:18px; font-size:clamp(13px,1.5vw,17px); font-weight:400;
+    letter-spacing:.38em; text-transform:uppercase; color:#b5b5b5;
+    opacity:0; animation:fade 1.4s .7s var(--ease) forwards;
+  }
+
+  /* Body copy on white */
+  .body { background:var(--paper); color:var(--ink); padding:clamp(72px,14vh,160px) 16px; }
+  .body-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr; gap:clamp(28px,5vh,56px); }
+  .body .intro { font-size:clamp(24px,3.4vw,44px); line-height:1.22; font-weight:300; max-width:24em; }
+  .body .text { font-size:clamp(17px,1.6vw,21px); line-height:1.65; font-weight:300; color:#2a2a2a; max-width:36em; }
+  .body .text p + p { margin-top:1em; }
+  @media (min-width:900px) {
+    .body-inner { grid-template-columns:1fr 1fr; align-items:start; column-gap:clamp(48px,7vw,120px); }
+  }
+
+  /* Next / previous */
+  nav.pager { background:var(--ink); border-top:1px solid #1d1d1d; }
+  .pager-inner { max-width:1100px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; }
+  .pager a {
+    display:block; padding:clamp(28px,6vh,64px) 16px; text-decoration:none;
+    transition:background .5s var(--ease);
+  }
+  .pager a:hover, .pager a:focus-visible { background:#111; }
+  .pager .dir { display:block; font-size:11px; font-weight:400; letter-spacing:.36em; text-transform:uppercase; color:var(--mute); margin-bottom:12px; }
+  .pager .name { font-size:clamp(20px,2.6vw,34px); }
+  .pager .next { text-align:right; border-left:1px solid #1d1d1d; }
+  footer { padding:40px 16px; text-align:center; font-size:11px; letter-spacing:.3em; text-transform:uppercase; color:var(--grey); }
+  footer a { text-decoration:none; }
+  footer a:hover { color:var(--paper); }
+
+  /* Artwork animation */
+  .art .draw { stroke-dasharray:3000; stroke-dashoffset:3000; animation:draw 2.6s .2s cubic-bezier(.65,0,.35,1) forwards; }
+  .art .draw-g line { stroke-dasharray:1200; stroke-dashoffset:1200; animation:draw 2.2s .4s cubic-bezier(.65,0,.35,1) forwards; }
+  .art .fade { opacity:0; animation:fade 1.6s .3s var(--ease) forwards; }
+  .art .pop { opacity:0; animation:fade 1.2s 1.6s var(--ease) forwards; }
+  .art .rise { opacity:0; transform:translateY(40px); animation:up 1s var(--ease) forwards; animation-delay:calc(.4s + var(--i) * .12s); }
+  .art .win { opacity:0; animation:fade .8s var(--ease) forwards; animation-delay:calc(1s + var(--i) * .06s); }
+  .art .slide-l { opacity:0; transform:translateX(-120px); animation:in 1.8s .3s var(--ease) forwards; }
+  .art .slide-r { opacity:0; transform:translateX(120px); animation:in 1.8s .45s var(--ease) forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+  @keyframes fade { to { opacity:1; } }
+  @keyframes up { to { opacity:1; transform:none; } }
+  @keyframes in { to { opacity:1; transform:none; } }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation:none !important; }
+    .count, h1, .lede, .art .fade, .art .pop, .art .rise, .art .win, .art .slide-l, .art .slide-r { opacity:1; transform:none; }
+    .art .draw, .art .draw-g line { stroke-dashoffset:0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a class="brand" href="../../">
+    <svg viewBox="120 0 784 784" aria-hidden="true">
+      <clipPath id="disc"><circle cx="512" cy="391" r="381"/></clipPath>
+      <g clip-path="url(#disc)">
+        <path d="M500 352 706 158 940 377V800H500Z" fill="#595959"/>
+        <path d="M60 586 363 378 580 525V800H60Z" fill="#f7f7f5"/>
+      </g>
+      <circle cx="512" cy="391" r="384" fill="none" stroke="#f7f7f5" stroke-width="22"/>
+    </svg>
+    <span>Empyrean</span>
+  </a>
+  <a class="back" href="../../#services">All services</a>
+</header>
+
+<section class="hero">
+  <svg class="art" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax meet" role="presentation" aria-hidden="true"><defs></defs><rect class="fade" x="10" y="10" width="120" height="90" fill="#1a1a1a"/><rect class="fade" x="10" y="120" width="120" height="100" fill="#1a1a1a"/><rect class="fade" x="10" y="240" width="120" height="80" fill="#2b2b2b"/><rect class="fade" x="10" y="340" width="120" height="100" fill="#222"/><rect class="fade" x="10" y="460" width="120" height="90" fill="#1a1a1a"/><rect class="fade" x="10" y="570" width="120" height="100" fill="#1a1a1a"/><rect class="fade" x="10" y="690" width="120" height="100" fill="#222"/><rect class="fade" x="10" y="810" width="120" height="80" fill="#2b2b2b"/><rect class="fade" x="150" y="10" width="90" height="90" fill="#1a1a1a"/><rect class="fade" x="150" y="120" width="90" height="100" fill="#1a1a1a"/><rect class="fade" x="150" y="240" width="90" height="80" fill="#222"/><rect class="fade" x="150" y="340" width="90" height="100" fill="#222"/><rect class="fade" x="150" y="460" width="90" height="90" fill="#222"/><rect class="fade" x="150" y="570" width="90" height="100" fill="#1a1a1a"/><rect class="fade" x="150" y="690" width="90" height="100" fill="#1a1a1a"/><rect class="fade" x="150" y="810" width="90" height="80" fill="#1a1a1a"/><rect class="fade" x="260" y="10" width="130" height="90" fill="#222"/><rect class="fade" x="260" y="120" width="130" height="100" fill="#1a1a1a"/><rect class="fade" x="260" y="240" width="130" height="80" fill="#1a1a1a"/><rect class="fade" x="260" y="340" width="130" height="100" fill="#1a1a1a"/><rect class="fade" x="260" y="460" width="130" height="90" fill="#1a1a1a"/><rect class="fade" x="260" y="570" width="130" height="100" fill="#2b2b2b"/><rect class="fade" x="260" y="690" width="130" height="100" fill="#1a1a1a"/><rect class="fade" x="260" y="810" width="130" height="80" fill="#2b2b2b"/><rect class="fade" x="410" y="10" width="100" height="90" fill="#222"/><rect class="fade" x="410" y="120" width="100" height="100" fill="#222"/><rect class="fade" x="410" y="240" width="100" height="80" fill="#222"/><rect class="fade" x="410" y="340" width="100" height="100" fill="#222"/><rect class="fade" x="410" y="460" width="100" height="90" fill="#222"/><rect class="fade" x="410" y="570" width="100" height="100" fill="#1a1a1a"/><rect class="fade" x="410" y="690" width="100" height="100" fill="#2b2b2b"/><rect class="fade" x="410" y="810" width="100" height="80" fill="#1a1a1a"/><rect class="fade" x="530" y="10" width="100" height="90" fill="#1a1a1a"/><rect class="fade" x="530" y="120" width="100" height="100" fill="#1a1a1a"/><rect class="fade" x="530" y="240" width="100" height="80" fill="#222"/><rect class="fade" x="530" y="340" width="100" height="100" fill="#1a1a1a"/><rect class="fade" x="530" y="460" width="100" height="90" fill="#2b2b2b"/><rect class="fade" x="530" y="570" width="100" height="100" fill="#222"/><rect class="fade" x="530" y="690" width="100" height="100" fill="#2b2b2b"/><rect class="fade" x="530" y="810" width="100" height="80" fill="#222"/><rect class="fade" x="650" y="10" width="130" height="90" fill="#222"/><rect class="fade" x="650" y="120" width="130" height="100" fill="#2b2b2b"/><rect class="fade" x="650" y="240" width="130" height="80" fill="#222"/><rect class="fade" x="650" y="340" width="130" height="100" fill="#1a1a1a"/><rect class="fade" x="650" y="460" width="130" height="90" fill="#2b2b2b"/><rect class="fade" x="650" y="570" width="130" height="100" fill="#1a1a1a"/><rect class="fade" x="650" y="690" width="130" height="100" fill="#2b2b2b"/><rect class="fade" x="650" y="810" width="130" height="80" fill="#1a1a1a"/><rect class="fade" x="800" y="10" width="90" height="90" fill="#2b2b2b"/><rect class="fade" x="800" y="120" width="90" height="100" fill="#1a1a1a"/><rect class="fade" x="800" y="240" width="90" height="80" fill="#1a1a1a"/><rect class="fade" x="800" y="340" width="90" height="100" fill="#2b2b2b"/><rect class="fade" x="800" y="460" width="90" height="90" fill="#2b2b2b"/><rect class="fade" x="800" y="570" width="90" height="100" fill="#1a1a1a"/><rect class="fade" x="800" y="690" width="90" height="100" fill="#1a1a1a"/><rect class="fade" x="800" y="810" width="90" height="80" fill="#222"/><rect class="fade" x="910" y="10" width="120" height="90" fill="#222"/><rect class="fade" x="910" y="120" width="120" height="100" fill="#1a1a1a"/><rect class="fade" x="910" y="240" width="120" height="80" fill="#2b2b2b"/><rect class="fade" x="910" y="340" width="120" height="100" fill="#1a1a1a"/><rect class="fade" x="910" y="460" width="120" height="90" fill="#222"/><rect class="fade" x="910" y="570" width="120" height="100" fill="#1a1a1a"/><rect class="fade" x="910" y="690" width="120" height="100" fill="#1a1a1a"/><rect class="fade" x="910" y="810" width="120" height="80" fill="#2b2b2b"/><rect class="fade" x="1050" y="10" width="120" height="90" fill="#222"/><rect class="fade" x="1050" y="120" width="120" height="100" fill="#222"/><rect class="fade" x="1050" y="240" width="120" height="80" fill="#1a1a1a"/><rect class="fade" x="1050" y="340" width="120" height="100" fill="#1a1a1a"/><rect class="fade" x="1050" y="460" width="120" height="90" fill="#1a1a1a"/><rect class="fade" x="1050" y="570" width="120" height="100" fill="#222"/><rect class="fade" x="1050" y="690" width="120" height="100" fill="#2b2b2b"/><rect class="fade" x="1050" y="810" width="120" height="80" fill="#2b2b2b"/><rect class="fade" x="1190" y="10" width="100" height="90" fill="#1a1a1a"/><rect class="fade" x="1190" y="120" width="100" height="100" fill="#1a1a1a"/><rect class="fade" x="1190" y="240" width="100" height="80" fill="#2b2b2b"/><rect class="fade" x="1190" y="340" width="100" height="100" fill="#1a1a1a"/><rect class="fade" x="1190" y="460" width="100" height="90" fill="#1a1a1a"/><rect class="fade" x="1190" y="570" width="100" height="100" fill="#1a1a1a"/><rect class="fade" x="1190" y="690" width="100" height="100" fill="#1a1a1a"/><rect class="fade" x="1190" y="810" width="100" height="80" fill="#1a1a1a"/><rect class="fade" x="1310" y="10" width="120" height="90" fill="#222"/><rect class="fade" x="1310" y="120" width="120" height="100" fill="#2b2b2b"/><rect class="fade" x="1310" y="240" width="120" height="80" fill="#2b2b2b"/><rect class="fade" x="1310" y="340" width="120" height="100" fill="#1a1a1a"/><rect class="fade" x="1310" y="460" width="120" height="90" fill="#1a1a1a"/><rect class="fade" x="1310" y="570" width="120" height="100" fill="#2b2b2b"/><rect class="fade" x="1310" y="690" width="120" height="100" fill="#2b2b2b"/><rect class="fade" x="1310" y="810" width="120" height="80" fill="#2b2b2b"/><rect class="fade" x="1450" y="10" width="140" height="90" fill="#1a1a1a"/><rect class="fade" x="1450" y="120" width="140" height="100" fill="#222"/><rect class="fade" x="1450" y="240" width="140" height="80" fill="#222"/><rect class="fade" x="1450" y="340" width="140" height="100" fill="#222"/><rect class="fade" x="1450" y="460" width="140" height="90" fill="#222"/><rect class="fade" x="1450" y="570" width="140" height="100" fill="#1a1a1a"/><rect class="fade" x="1450" y="690" width="140" height="100" fill="#2b2b2b"/><rect class="fade" x="1450" y="810" width="140" height="80" fill="#222"/><path class="draw" d="M-20 610 C 260 520, 420 700, 700 640 S 1120 420, 1360 520 S 1560 600, 1640 560" fill="none" stroke="#050505" stroke-width="70"/><path class="draw" d="M-20 610 C 260 520, 420 700, 700 640 S 1120 420, 1360 520 S 1560 600, 1640 560" fill="none" stroke="#595959" stroke-width="2"/><rect class="pop" x="800" y="240" width="230" height="200" fill="#f7f7f5"/><circle class="pop" cx="800" cy="240" r="7" fill="#050505" stroke="#f7f7f5" stroke-width="3"/><circle class="pop" cx="1030" cy="240" r="7" fill="#050505" stroke="#f7f7f5" stroke-width="3"/><circle class="pop" cx="800" cy="440" r="7" fill="#050505" stroke="#f7f7f5" stroke-width="3"/><circle class="pop" cx="1030" cy="440" r="7" fill="#050505" stroke="#f7f7f5" stroke-width="3"/><rect class="draw" x="764" y="204" width="302" height="272" fill="none" stroke="#f7f7f5" stroke-width="2" stroke-dasharray="10 12"/></svg>
+  <div class="title">
+    <p class="count">01 / 07</p>
+    <h1>Land Sourcing</h1>
+    <p class="lede">Finding London&#x27;s next opportunity</p>
+  </div>
+</section>
+
+<section class="body">
+  <div class="body-inner">
+    <p class="intro">Every great London scheme begins with the right site.</p>
+    <div class="text"><p>We search the capital street by street, on and off the market, for land and buildings with untapped potential.</p><p>Each opportunity is tested against planning, market and financial appraisal before we commit.</p><p>We carry out rigorous due diligence on title, access, covenants and ground conditions.</p><p>We then lead the acquisition from first offer through to completion.</p><p>London&#x27;s best sites are rarely obvious, and we know where to look.</p></div>
+  </div>
+</section>
+
+<nav class="pager" aria-label="Services">
+  <div class="pager-inner">
+    <a class="prev" href="../partnering-and-joint-venture/"><span class="dir">Previous</span><span class="name">Partnering and Joint Venture</span></a>
+    <a class="next" href="../planning/"><span class="dir">Next</span><span class="name">Planning</span></a>
+  </div>
+</nav>
+
+<footer>&copy; <span id="yr">2026</span> <a href="../../">Empyrean Developments</a></footer>
+<script>document.getElementById('yr').textContent = new Date().getFullYear();</script>
+</body>
+</html>
